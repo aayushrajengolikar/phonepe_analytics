@@ -7,13 +7,22 @@ st.set_page_config(layout="wide")
 st.title("📊 PhonePe Analytics Dashboard")
 
 # ================= LOAD DATA =================
+
+
+
+
+import os
+
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+DATA_DIR = os.path.join(BASE_DIR, "csv_created")
+
 @st.cache_data
 def load_data():
-    return (
-        pd.read_csv("aggregated_transaction.csv"),
-        pd.read_csv("aggregated_user.csv"),
-        pd.read_csv("aggregated_insurance.csv")
-    )
+    df_trans = pd.read_csv(os.path.join(DATA_DIR, "aggregated_transaction.csv"))
+    df_user = pd.read_csv(os.path.join(DATA_DIR, "aggregated_user.csv"))
+    df_ins = pd.read_csv(os.path.join(DATA_DIR, "aggregated_insurance.csv"))
+    return df_trans, df_user, df_ins
+
 
 df_trans, df_user, df_ins = load_data()
 
